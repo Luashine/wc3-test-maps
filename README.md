@@ -33,3 +33,21 @@ u2 = CreateUnit(Player(0), FourCC("hfoo"), 0, 0, 90)
 -- will make a unit 50% transparent with dark green-blue color
 SetUnitVertexColor(u1, 0, 255, 127, 127)
 ```
+
+## Set/GetUnitAbilityLevel, SelectHeroSkill, SetHeroLevel etc.
+
+SetHeroLevel, SelectHeroSkill, GetUnitAbilityLevel, SetUnitAbilityLevel, ReviveHero, ReviveHeroLoc, UnitAddAbility, UnitRemoveAbility
+
+```lua
+u = CreateUnit(Player(0), FourCC("Hamg"), -30, 0, 90)
+-- AHwe - Arch-Human-water-elemental summon
+GetUnitAbilityLevel(u, FourCC'AHwe')
+SetUnitAbilityLevel(u, FourCC'AHwe', 3)
+
+UnitAddAbility(u, FourCC'AHwe')
+UnitRemoveAbility(u, FourCC'AHwe')
+	
+SelectHeroSkill(u, FourCC'AHwe')
+
+SetHeroLevel(u, 9, true)
+```
