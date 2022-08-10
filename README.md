@@ -51,3 +51,19 @@ SelectHeroSkill(u, FourCC'AHwe')
 
 SetHeroLevel(u, 9, true)
 ```
+
+## Attack and Gamespeed (map, Lua)
+
+- Worker training: records wall clock time spent on training the human worker. Set to 10s in WE
+
+- OnAttack: Hero and Arrow tower are tracked and written to multiboard. First value is attackCount, second value is attacks/second
+
+- Change game speed: `-gs <number>`
+   - Currently only 0, 1, 2 exist in the game
+
+- TriggerSleepAction benchmark: `-sleep <seconds>`
+
+- PolledWait benchmark: `-polledwait <seconds>`
+
+- Wait based on a single Timer (unlike PolledWait): `-timerwait <seconds>`
+
