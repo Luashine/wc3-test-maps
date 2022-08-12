@@ -166,3 +166,19 @@ UnitUseItem(hero, heroDagger)
 UnitUseItem(hero, heroInferno)
 --> true, but does nothing, no cooldown
 ```
+
+## UnitAddItemById, EnumItems on map (code)
+
+```lua
+u = CreateUnit(Player(0), FourCC("hfoo"), -30, 0, 90)
+
+-- Kelthas boots
+-- will be dropped to the ground because cannot carry items
+UnitAddItemById(u, FourCC'belv')
+
+-- Should spawn no items, both invalid
+UnitAddItemById(u, 0)
+UnitAddItemById(nil, FourCC'belv')
+
+EnumItemsInRect(GetWorldBounds(), nil, function() local it=GetEnumItem();print(GetItemX(it),GetItemY(it),GetItemName(it)) end)
+```
