@@ -255,3 +255,31 @@ rectRemove = Rect(-1,-2, 3,4)
 RemoveRect(rectRemove)
 showRect(rectRemove)
 ```
+
+# Generate string to test max length
+
+Generates a string that tracks its own length for max length checks (Lua code):
+
+```lua
+local s = ""
+local maxLength = 5000
+
+while #s < maxLength do
+	s = s .. (#s .. ".")
+end
+print(s)
+```
+
+Example output: `0.2.4.6.8.10.13.`
+
+This must be read as "13." means that the dot character following "10" was the 13th character in the string. Thus we only need to sum up 13 + the three characters of the last number you can see: 13+3 = 16 characters total generated and visible.
+
+Graphic:
+
+```
+Visible string:
+0.2.4.6.8.10.13.
+ ^ ^ ^ ^ ^  ^  ^
+ 2 | 6 | 10 |  16 (you can see 3 more characters after the last number)
+   4   8    13 (last number points to this)
+```
