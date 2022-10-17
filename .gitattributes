@@ -1,0 +1,23 @@
+(attributes)		binary
+(listfile)			text eolf=crlf
+conversation.json	text eol=lf
+war3map.doo			binary
+*.j				text eol=crlf
+*.lua			text
+war3map.mmp			binary
+war3map.shd			binary
+war3map.w3c			binary
+war3map.w3e			binary
+war3map.w3i			binary
+war3map.w3r			binary
+war3map.w3u			binary
+war3map.wct			binary
+war3map.wpm			binary
+war3map.wtg			binary
+war3map.wts			text eol=crlf
+*.blp			binary
+war3mapUnits.doo	binary
+
+*.w3m	binary
+*.w3x	binary
+*.mpq	binary

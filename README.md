@@ -283,3 +283,12 @@ Visible string:
  2 | 6 | 10 |  16 (you can see 3 more characters after the last number)
    4   8    13 (last number points to this)
 ```
+
+# StringLength-And-Special.w3m
+
+Test map for string length and special character handling.
+
+# Nested-error-in-blizzardj (lua-error-in-blizzardj-v1.w3m)
+
+Lua: A map that causes a function call inside `Blizzard.j` to fail (`Blizzard.j` is auto-transpiled to Lua) 
+
