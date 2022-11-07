@@ -292,3 +292,8 @@ Test map for string length and special character handling.
 
 Lua: A map that causes a function call inside `Blizzard.j` to fail (`Blizzard.j` is auto-transpiled to Lua) 
 
+# global_constants_to_string.lua
+
+This function can be used to generate a function to compare predefined strings
+and output as a fancy string. Useful to compare custom types such as playerstate etc.
+
