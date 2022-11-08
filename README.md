@@ -297,3 +297,19 @@ Lua: A map that causes a function call inside `Blizzard.j` to fail (`Blizzard.j`
 This function can be used to generate a function to compare predefined strings
 and output as a fancy string. Useful to compare custom types such as playerstate etc.
 
+# Dialog API testing snippet
+
+```lua
+dlog = DialogCreate()
+
+DialogSetMessage(dlog, ("setMessage123"):rep(5))
+DialogAddQuitButton(dlog, true, "quit with score (hotkey Y)", ("Y"):byte())
+DialogAddQuitButton(dlog, false, "quit without score (hotkey Z)", ("Z"):byte())
+DialogAddButton(dlog, "Just the U Button", ("U"):byte())
+DialogAddButton(dlog, "lower-case p hotkey shouldnt work", ("p"):byte())
+DialogAddButton(dlog, "The hotkey is @ (at)", ("@"):byte())
+DialogDisplay(Player(12), dlog, true)
+
+DialogClear(dlog)
+DialogDestroy(dlog)
+```
