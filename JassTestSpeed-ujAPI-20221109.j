@@ -1,3 +1,18 @@
+// This is a basic benchmark that measures the time
+// to execute a function call of the new APIs in ujAPI.
+
+// You need UjAPI to run this
+
+// Results (by Unryze):
+
+// FOR 10000 ITERATIONS:
+
+// 10k Default function "call" in JASS: 3ms (300ns/call)
+// 10k Default function call in Lua: 0.07ms (6.9ns/call)
+// ==> Lua is approx. 43.5x faster
+
+// 10k "ExecuteFunc" in Jass takes ~50ms (Lua is 724x faster)
+
 globals
 	integer execFuncCount = 0
 endglobals
