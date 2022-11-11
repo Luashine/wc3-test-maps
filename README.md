@@ -256,7 +256,7 @@ RemoveRect(rectRemove)
 showRect(rectRemove)
 ```
 
-# Generate string to test max length
+## Generate string to test max length
 
 Generates a string that tracks its own length for max length checks (Lua code):
 
@@ -284,20 +284,20 @@ Visible string:
    4   8    13 (last number points to this)
 ```
 
-# StringLength-And-Special.w3m
+## StringLength-And-Special.w3m
 
 Test map for string length and special character handling.
 
-# Nested-error-in-blizzardj (lua-error-in-blizzardj-v1.w3m)
+## Nested-error-in-blizzardj (lua-error-in-blizzardj-v1.w3m)
 
 Lua: A map that causes a function call inside `Blizzard.j` to fail (`Blizzard.j` is auto-transpiled to Lua) 
 
-# global_constants_to_string.lua
+## global_constants_to_string.lua
 
 This function can be used to generate a function to compare predefined strings
 and output as a fancy string. Useful to compare custom types such as playerstate etc.
 
-# Dialog API testing snippet
+## Dialog API testing snippet
 
 ```lua
 dlog = DialogCreate()
@@ -313,3 +313,49 @@ DialogDisplay(Player(12), dlog, true)
 DialogClear(dlog)
 DialogDestroy(dlog)
 ```
+
+## DestroyMultiboard + ShowInterface(false, 0) crash
+
+*Multiboard does crash in 1.30.x-1.32.10 (maybe earlier)*
+
+**What:** Multiboard + ShowInterface crash bug (fixed in 1.33).
+Leaderboard and Timer Window do not crash, tested.
+
+**Setup:** Players red and dark red in LAN. Lua code:
+
+### Multiboard
+
+	mb = CreateMultiboard()
+	MultiboardSetRowCount(mb, 2)
+	MultiboardSetColumnCount(mb,2)
+	mbi = MultiboardGetItem(mb, 0,0)
+	MultiboardSetItemValue(mb11, "hey")
+	MultiboardDisplay(mb)
+	if GetLocalPlayer() == Player(12) then ShowInterface(false, 0.5) end
+	DestroyMultiboard(mb) -- OK
+	ShowInterface(true, 0) -- Player(12) crashes
+
+### Leaderboard
+
+	// Does not crash in 1.32.10
+	lb = CreateLeaderboard()
+	LeaderboardAddItem(lb, "label", 123, Player(0))
+	PlayerSetLeaderboard(Player(0), lb)
+	PlayerSetLeaderboard(Player(12), lb)
+	LeaderboardDisplay(lb,true)
+	if GetLocalPlayer() == Player(12) then ShowInterface(false, 0.5) end
+	DestroyLeaderboard(lb)
+	ShowInterface(true, 0)
+
+### Timer Window
+
+	// Timer Window: 
+	t = CreateTimer()
+	TimerStart(t, 30, true, function() print("hello from timer") end)
+	tdialog = CreateTimerDialog(t)
+	TimerDialogSetTitle(tdialog, "insane title")
+	TimerDialogDisplay(tdialog, true)
+	if GetLocalPlayer() == Player(12) then ShowInterface(false, 0.5) end
+	DestroyTimerDialog(tdialog)
+	ShowInterface(true, 0)
+
