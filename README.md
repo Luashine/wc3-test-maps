@@ -494,3 +494,7 @@ TriggerRegisterGameEvent(trg_gameEvTimer, EVENT_GAME_TIMER_EXPIRED)
 
 See file: `BlzHideCinematicPanels.md`
 
+## DisplayTextToPlayer-position
+
+Shows text box position. Go to [DisplayTextToPlayer-position.md](DisplayTextToPlayer-position/DisplayTextToPlayer-position.md)
+
