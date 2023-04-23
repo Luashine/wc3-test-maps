@@ -52,6 +52,14 @@ No map.
 Shows text box position. Go to [DisplayTextToPlayer-position.md](DisplayTextToPlayer-position/DisplayTextToPlayer-position.md)
 
 
+### Inexplicable Timer Difference
+
+No map, major problem, wrote an explanation.
+
+The in-game timers oscillate and deviate. Major change in behavior between 1.29 and Reforged.
+Go to [readme](inexplicable-timer-difference/README.md).
+
+
 ### Nested-error-in-blizzardj
 
 [Link to map](Nested-error-in-blizzardj/lua-error-in-blizzardj-v1.w3m) inside the folder.
