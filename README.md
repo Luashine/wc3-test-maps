@@ -39,11 +39,24 @@ Has a map, Lua.
 See file: [BlzHideCinematicPanels.md](BlzHideCinematicPanels.md)
 
 
+### DestroyMultiboard + ShowInterface(false, 0) crash
+
+Code only.
+
+Fixed in 1.33. *Multiboard does crash in 1.30.x-1.32.10 (maybe earlier)*. Go to [ShowInterface-crash](ShowInterface-crash/README.md).
+
 ### DisplayTextToPlayer-position
 
 No map.
 
 Shows text box position. Go to [DisplayTextToPlayer-position.md](DisplayTextToPlayer-position/DisplayTextToPlayer-position.md)
+
+
+### Nested-error-in-blizzardj
+
+[Link to map](Nested-error-in-blizzardj/lua-error-in-blizzardj-v1.w3m) inside the folder.
+
+Lua: A map that causes a function call inside `Blizzard.j` to fail (`Blizzard.j` is auto-transpiled to Lua)
 
 
 ### SuggestedPlayerInW3I
@@ -319,10 +332,6 @@ Visible string:
 
 Test map for string length and special character handling.
 
-### Nested-error-in-blizzardj (lua-error-in-blizzardj-v1.w3m)
-
-Lua: A map that causes a function call inside `Blizzard.j` to fail (`Blizzard.j` is auto-transpiled to Lua) 
-
 ### global_constants_to_string.lua
 
 This function can be used to generate a function to compare predefined strings
@@ -344,51 +353,6 @@ DialogDisplay(Player(12), dlog, true)
 DialogClear(dlog)
 DialogDestroy(dlog)
 ```
-
-### DestroyMultiboard + ShowInterface(false, 0) crash
-
-*Multiboard does crash in 1.30.x-1.32.10 (maybe earlier)*
-
-**What:** Multiboard + ShowInterface crash bug (fixed in 1.33).
-Leaderboard and Timer Window do not crash, tested.
-
-**Setup:** Players red and dark red in LAN. Lua code:
-
-#### Multiboard
-
-	mb = CreateMultiboard()
-	MultiboardSetRowCount(mb, 2)
-	MultiboardSetColumnCount(mb,2)
-	mbi = MultiboardGetItem(mb, 0,0)
-	MultiboardSetItemValue(mb11, "hey")
-	MultiboardDisplay(mb)
-	if GetLocalPlayer() == Player(12) then ShowInterface(false, 0.5) end
-	DestroyMultiboard(mb) -- OK
-	ShowInterface(true, 0) -- Player(12) crashes
-
-#### Leaderboard
-
-	// Does not crash in 1.32.10
-	lb = CreateLeaderboard()
-	LeaderboardAddItem(lb, "label", 123, Player(0))
-	PlayerSetLeaderboard(Player(0), lb)
-	PlayerSetLeaderboard(Player(12), lb)
-	LeaderboardDisplay(lb,true)
-	if GetLocalPlayer() == Player(12) then ShowInterface(false, 0.5) end
-	DestroyLeaderboard(lb)
-	ShowInterface(true, 0)
-
-#### Timer Window
-
-	// Timer Window: 
-	t = CreateTimer()
-	TimerStart(t, 30, true, function() print("hello from timer") end)
-	tdialog = CreateTimerDialog(t)
-	TimerDialogSetTitle(tdialog, "insane title")
-	TimerDialogDisplay(tdialog, true)
-	if GetLocalPlayer() == Player(12) then ShowInterface(false, 0.5) end
-	DestroyTimerDialog(tdialog)
-	ShowInterface(true, 0)
 
 ### Wiget API and TriggerRegisterDeathEvent + GetTriggerWidget()
 
