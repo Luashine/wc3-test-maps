@@ -7,13 +7,59 @@ I will use this repository to create small test maps for various pieces of Warcr
 
 For code snippets in Lua, use [Debug Console](https://www.hiveworkshop.com/threads/lua-debug-utils-ingame-console-etc.330758/) by Eikonium.
 
-## AddResourceAmount 
+## List of organized topics/subfolders
 
-(Jass, 1.27)
+### AddResourceAmount 
 
-Creates multiple mines to test Add/Set|ResourceAmount functions. Includes: 0, set negative, add big negative.
+Jass, 1.27
 
-## SetUnitColor (no map)
+Creates multiple mines to test `Add/Set|ResourceAmount` functions. Includes: 0, set negative, add big negative.
+
+
+### Attack-and-Gamespeed 
+
+Has a map, Lua.
+
+- Worker training: records wall clock time spent on training the human worker. Set to 10s in WE
+
+- OnAttack: Hero and Arrow tower are tracked and written to multiboard. First value is attackCount, second value is attacks/second
+
+- Change game speed: `-gs <number>`
+   - Currently only 0, 1, 2 exist in the game
+
+- TriggerSleepAction benchmark: `-sleep <seconds>`
+
+- PolledWait benchmark: `-polledwait <seconds>`
+
+- Wait based on a single Timer (unlike PolledWait): `-timerwait <seconds>`
+
+
+### (Bug) BlzHideCinematicPanels shifts camera
+
+See file: [BlzHideCinematicPanels.md](BlzHideCinematicPanels.md)
+
+
+### DisplayTextToPlayer-position
+
+No map.
+
+Shows text box position. Go to [DisplayTextToPlayer-position.md](DisplayTextToPlayer-position/DisplayTextToPlayer-position.md)
+
+
+### SuggestedPlayerInW3I
+
+Has all test maps, properly written down.
+
+Tests the String reader in W3I which has a built-in length limit.
+The value shows up in the game menu.
+
+
+## The rest are my random snippets
+
+etc.
+
+
+### SetUnitColor (no map)
 
 Sets a unit's player color accent.
 
@@ -24,7 +70,7 @@ u2 = CreateUnit(Player(0), FourCC("hfoo"), 0, 0, 90)
 SetUnitColor(u1, PLAYER_COLOR_PINK)
 ```
 
-## SetUnitVertexColor (no map)
+### SetUnitVertexColor (no map)
 
 ```lua
 u1 = CreateUnit(Player(0), FourCC("hfoo"), -200, 0, 90)
@@ -34,7 +80,7 @@ u2 = CreateUnit(Player(0), FourCC("hfoo"), 0, 0, 90)
 SetUnitVertexColor(u1, 0, 255, 127, 127)
 ```
 
-## Set/GetUnitAbilityLevel, SelectHeroSkill, SetHeroLevel etc.
+### Set/GetUnitAbilityLevel, SelectHeroSkill, SetHeroLevel etc.
 
 SetHeroLevel, SelectHeroSkill, GetUnitAbilityLevel, SetUnitAbilityLevel, ReviveHero, ReviveHeroLoc, UnitAddAbility, UnitRemoveAbility
 
@@ -52,22 +98,7 @@ SelectHeroSkill(u, FourCC'AHwe')
 SetHeroLevel(u, 9, true)
 ```
 
-## Attack and Gamespeed (map, Lua)
-
-- Worker training: records wall clock time spent on training the human worker. Set to 10s in WE
-
-- OnAttack: Hero and Arrow tower are tracked and written to multiboard. First value is attackCount, second value is attacks/second
-
-- Change game speed: `-gs <number>`
-   - Currently only 0, 1, 2 exist in the game
-
-- TriggerSleepAction benchmark: `-sleep <seconds>`
-
-- PolledWait benchmark: `-polledwait <seconds>`
-
-- Wait based on a single Timer (unlike PolledWait): `-timerwait <seconds>`
-
-## Unit Item/Inventory API (no map)
+### Unit Item/Inventory API (no map)
 
 ```lua
 AddPlayerTechResearched(Player(0), FourCC'Rhpm', 1)
@@ -167,7 +198,7 @@ UnitUseItem(hero, heroInferno)
 --> true, but does nothing, no cooldown
 ```
 
-## UnitAddItemById, EnumItems on map (code)
+### UnitAddItemById, EnumItems on map (code)
 
 ```lua
 u = CreateUnit(Player(0), FourCC("hfoo"), -30, 0, 90)
@@ -183,7 +214,7 @@ UnitAddItemById(nil, FourCC'belv')
 EnumItemsInRect(GetWorldBounds(), nil, function() local it=GetEnumItem();print(GetItemX(it),GetItemY(it),GetItemName(it)) end)
 ```
 
-## Rect / Rectangle / Region / Location (code)
+### Rect / Rectangle / Region / Location (code)
 
 For: Rect, RectFromLoc, RemoveRect, SetRect, SetRectFromLoc, MoveRectTo, MoveRectToLoc, GetRectCenterX, GetRectCenterY, GetRectMinX, GetRectMinY, GetRectMaxX, GetRectMaxY, GetWorldBounds
 
@@ -256,7 +287,7 @@ RemoveRect(rectRemove)
 showRect(rectRemove)
 ```
 
-## Generate string to test max length
+### Generate string to test max length
 
 Generates a string that tracks its own length for max length checks (Lua code):
 
@@ -284,20 +315,20 @@ Visible string:
    4   8    13 (last number points to this)
 ```
 
-## StringLength-And-Special.w3m
+### StringLength-And-Special.w3m
 
 Test map for string length and special character handling.
 
-## Nested-error-in-blizzardj (lua-error-in-blizzardj-v1.w3m)
+### Nested-error-in-blizzardj (lua-error-in-blizzardj-v1.w3m)
 
 Lua: A map that causes a function call inside `Blizzard.j` to fail (`Blizzard.j` is auto-transpiled to Lua) 
 
-## global_constants_to_string.lua
+### global_constants_to_string.lua
 
 This function can be used to generate a function to compare predefined strings
 and output as a fancy string. Useful to compare custom types such as playerstate etc.
 
-## Dialog API testing snippet
+### Dialog API testing snippet
 
 ```lua
 dlog = DialogCreate()
@@ -314,7 +345,7 @@ DialogClear(dlog)
 DialogDestroy(dlog)
 ```
 
-## DestroyMultiboard + ShowInterface(false, 0) crash
+### DestroyMultiboard + ShowInterface(false, 0) crash
 
 *Multiboard does crash in 1.30.x-1.32.10 (maybe earlier)*
 
@@ -323,7 +354,7 @@ Leaderboard and Timer Window do not crash, tested.
 
 **Setup:** Players red and dark red in LAN. Lua code:
 
-### Multiboard
+#### Multiboard
 
 	mb = CreateMultiboard()
 	MultiboardSetRowCount(mb, 2)
@@ -335,7 +366,7 @@ Leaderboard and Timer Window do not crash, tested.
 	DestroyMultiboard(mb) -- OK
 	ShowInterface(true, 0) -- Player(12) crashes
 
-### Leaderboard
+#### Leaderboard
 
 	// Does not crash in 1.32.10
 	lb = CreateLeaderboard()
@@ -347,7 +378,7 @@ Leaderboard and Timer Window do not crash, tested.
 	DestroyLeaderboard(lb)
 	ShowInterface(true, 0)
 
-### Timer Window
+#### Timer Window
 
 	// Timer Window: 
 	t = CreateTimer()
@@ -359,7 +390,7 @@ Leaderboard and Timer Window do not crash, tested.
 	DestroyTimerDialog(tdialog)
 	ShowInterface(true, 0)
 
-## Wiget API and TriggerRegisterDeathEvent + GetTriggerWidget()
+### Wiget API and TriggerRegisterDeathEvent + GetTriggerWidget()
 
 ```lua
 -- Create necessary widgets
@@ -407,7 +438,7 @@ TriggerAddAction(trigUnit, unitDied)
 TriggerRegisterUnitEvent(trigUnit, u, EVENT_UNIT_DEATH)
 ```
 
-## Timerdialog API tests
+### Timerdialog API tests
 
 ```
 timer = CreateTimer()
@@ -489,12 +520,4 @@ trg_gameEvTimer = CreateTrigger()
 TriggerAddAction(trg_gameEvTimer, function() print(tostring("hm")) end)
 TriggerRegisterGameEvent(trg_gameEvTimer, EVENT_GAME_TIMER_EXPIRED)
 ```
-
-## (Bug) BlzHideCinematicPanels shifts camera
-
-See file: `BlzHideCinematicPanels.md`
-
-## DisplayTextToPlayer-position
-
-Shows text box position. Go to [DisplayTextToPlayer-position.md](DisplayTextToPlayer-position/DisplayTextToPlayer-position.md)
 
