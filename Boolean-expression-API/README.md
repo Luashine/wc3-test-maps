@@ -8,7 +8,9 @@ Game: v1.32.10
 
 **And, Or, Not:** Always new handle, see Jass section.
 
-**Condition:** It seems to reuse the handle if the conditions are right; and it's not only dependent on GC collections.
+**Condition, Filter:** It seems to reuse the handle if the conditions are right; and it's not only dependent on GC collections.
+
+Note: Condition and Filter behave exactly the same in this regard.
 
 ```lua
 
