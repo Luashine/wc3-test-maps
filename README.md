@@ -52,6 +52,11 @@ No map.
 Shows text box position. Go to [DisplayTextToPlayer-position.md](DisplayTextToPlayer-position/DisplayTextToPlayer-position.md)
 
 
+### Force API
+
+[Link to readme](Force-API/README.md)
+
+
 ### Inexplicable Timer Difference
 
 No map, major problem, wrote an explanation.
