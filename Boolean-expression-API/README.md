@@ -2,6 +2,42 @@
 
 ## Boolean Expressions returns same handles
 
+### Lua
+
+Game: v1.32.10
+
+**And, Or, Not:** Always new handle, see Jass section.
+
+**Condition:** It seems to reuse the handle if the conditions are right; and it's not only dependent on GC collections.
+
+```lua
+
+Condition(nil) --> one handle
+-- wait some time --
+Condition(nil) --> second handle
+```
+
+However:
+
+```lua
+Condition(nil) == Condition(nil) --> returns true, reused the created condition
+
+function globalFunc() return true end
+Condition(globalFunc) == Condition(globalFunc) --> always returns false, different!
+
+Condition(nil), Condition(globalFunc), Condition(nil)
+--> first and last are identical, second is different
+```
+
+```lua
+Condition(nil) --> returns one handle
+Condition(nil) --> returns same one handle
+-- wait some long time
+Condition(nil) --> returns second, different handle
+```
+
+### Jass
+
 Map: "Condition-and-Operators-new-v1.32.10.w3m"
 
 Mixed results, v1.32.10:
