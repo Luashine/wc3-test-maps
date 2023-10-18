@@ -41,17 +41,18 @@ Test String: `Sugg_PlayersFieldExtraLongHowWouldYouKnow1234567890`
 	- Reforged: Shows up as 0 player in preview, thumbnail shown, the "Suggested Players" field is completely empty. **Breaks once you try to create singleplayer lobby** (timeout). Menu breaks, cannot create lobbies or click the back to main menu button.
 	- Classic (v1.27): **Crashes** at WEPlayerData once you click on the map to preview.
 	
-	
-	---------------------------
-	War3
-	---------------------------
-	This application has encountered a critical error:
+```
+---------------------------
+War3
+---------------------------
+This application has encountered a critical error:
 
-	Not enough storage is available to process this command.
+Not enough storage is available to process this command.
 
 
-	Program:	X:\WC3\Playable\v1.27-de\war3.exe
-	Object:	WEPlayerData (.?AUWEPlayerData@@)
+Program:	X:\WC3\Playable\v1.27-de\war3.exe
+Object:	WEPlayerData (.?AUWEPlayerData@@)
+```
 
 
 ## 3. Too long, 50 total
