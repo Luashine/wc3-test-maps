@@ -33,6 +33,9 @@ Has a map, Lua.
 
 - Wait based on a single Timer (unlike PolledWait): `-timerwait <seconds>`
 
+### Boolean Expression API
+
+[Link to text](Boolean-expression-API/README.md)
 
 ### (Bug) BlzHideCinematicPanels shifts camera
 
