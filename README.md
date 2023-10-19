@@ -7,6 +7,8 @@ I will use this repository to create small test maps for various pieces of Warcr
 
 For code snippets in Lua, use [Debug Console](https://www.hiveworkshop.com/threads/lua-debug-utils-ingame-console-etc.330758/) by Eikonium.
 
+To paste code into the game for live execution, use my [Debug Console Paste Helper](https://github.com/Luashine/wc3-debug-console-paste-helper).
+
 ## List of organized topics/subfolders
 
 ### AddResourceAmount 
