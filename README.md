@@ -290,7 +290,13 @@ showRect(RectFromLoc(locMin, locMax))
 
 rectSet = Rect(-1,-1,1,1)
 SetRect(rectSet, -1e5,-1e5, 1e5, 1e5)
-showRect(rectSet) --> capped to map bounds and maxX/maxY are off by 16
+showRect(rectSet) --> capped to map bounds and maxX/maxY are off by 32
+
+rectSetLoc = Rect(-1,-1,1,1)
+rectSetLoc_locMin = Location(-1e5, -1e5)
+rectSetLoc_locMax = Location(1e5, 1e5)
+SetRectFromLoc(rectSetLoc, rectSetLoc_locMin, rectSetLoc_locMax)
+showRect(rectSetLoc) --> capped to map bounds and maxX/maxY are off by 32
 
 SetRectFromLoc(rectSet, locFraction, locMax)
 showRect(rectSet) --> 0.1337,0.42, 4064,4064
