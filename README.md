@@ -85,6 +85,11 @@ Tests the String reader in W3I which has a built-in length limit.
 The value shows up in the game menu.
 
 
+### Variable Length Crash
+
+Using too long variable names crashed old versions (pre-Reforged). [read more](variable-length-crash/README.md)
+
+
 ## The rest are my random snippets
 
 etc.
@@ -378,7 +383,7 @@ DialogClear(dlog)
 DialogDestroy(dlog)
 ```
 
-### Wiget API and TriggerRegisterDeathEvent + GetTriggerWidget()
+### Widget API and TriggerRegisterDeathEvent + GetTriggerWidget()
 
 ```lua
 -- Create necessary widgets
