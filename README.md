@@ -89,6 +89,8 @@ The value shows up in the game menu.
 
 Using too long variable names crashed old versions (pre-Reforged). [read more](variable-length-crash/README.md)
 
+I also added other "too long" stuff that crashes WC3. Like function names, inline strings etc.
+
 
 ## The rest are my random snippets
 
