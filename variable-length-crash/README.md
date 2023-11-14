@@ -6,7 +6,7 @@ In Jass, variable length of exactly `3959` or above will crash old versions of t
 
 Appears to have been fixed in Reforged (1.33.0.19203). I didn't check which version.
 
-Both war3map.j and the map are included here.
+Both war3map.j and the map are included here: `name-and-namex`
 
 ```
 ---------------------------
