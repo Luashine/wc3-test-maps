@@ -60,6 +60,11 @@ The in-game timers oscillate and deviate. Major change in behavior between 1.29 
 Go to [readme](inexplicable-timer-difference/README.md).
 
 
+### Multilanguage
+
+Scripted war3map.wts generation and test map, [read more](multilanguage-map/README.md).
+
+
 ### Nested-error-in-blizzardj
 
 [Link to map](Nested-error-in-blizzardj/lua-error-in-blizzardj-v1.w3m) inside the folder.

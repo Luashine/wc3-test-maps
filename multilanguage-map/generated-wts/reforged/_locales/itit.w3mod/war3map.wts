@@ -1,0 +1,41 @@
+﻿STRING 1
+{
+1.24a MultiLang All Test
+}
+
+STRING 2
+{
+Plrs: itit.reforged
+}
+
+STRING 3
+{
+Description: itit.reforged
+}
+
+STRING 4
+{
+Luashine
+}
+
+STRING 5
+{
+Hello from itit.reforged Message!
+}
+
+STRING 6
+{
+Player 1
+}
+
+STRING 7
+{
+Force 1
+}
+
+STRING 8
+// Units: hpea (Custom WE Name), Name (Name)
+{
+itit.reforged
+}
+

@@ -1,0 +1,41 @@
+﻿STRING 1
+{
+1.24a MultiLang All Test
+}
+
+STRING 2
+{
+Plrs: frfr.classic
+}
+
+STRING 3
+{
+Description: frfr.classic
+}
+
+STRING 4
+{
+Luashine
+}
+
+STRING 5
+{
+Hello from frfr.classic Message!
+}
+
+STRING 6
+{
+Player 1
+}
+
+STRING 7
+{
+Force 1
+}
+
+STRING 8
+// Units: hpea (Custom WE Name), Name (Name)
+{
+frfr.classic
+}
+
