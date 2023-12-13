@@ -1,0 +1,10 @@
+---------------------------
+Warcraft III: Windows - Application Error
+---------------------------
+The exception unknown software exception (0xc0000409) occurred in the application at location 0x67854c44.
+
+
+Click on OK to terminate the program
+---------------------------
+OK   
+---------------------------

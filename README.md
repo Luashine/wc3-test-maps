@@ -7,6 +7,8 @@ I will use this repository to create small test maps for various pieces of Warcr
 
 For code snippets in Lua, use [Debug Console](https://www.hiveworkshop.com/threads/lua-debug-utils-ingame-console-etc.330758/) by Eikonium.
 
+To paste code into the game for live execution, use my [Debug Console Paste Helper](https://github.com/Luashine/wc3-debug-console-paste-helper).
+
 ## List of organized topics/subfolders
 
 ### AddResourceAmount 
@@ -33,6 +35,9 @@ Has a map, Lua.
 
 - Wait based on a single Timer (unlike PolledWait): `-timerwait <seconds>`
 
+### Boolean Expression API
+
+[Link to text](Boolean-expression-API/README.md)
 
 ### (Bug) BlzHideCinematicPanels shifts camera
 
@@ -50,6 +55,11 @@ Fixed in 1.33. *Multiboard does crash in 1.30.x-1.32.10 (maybe earlier)*. Go to 
 No map.
 
 Shows text box position. Go to [DisplayTextToPlayer-position.md](DisplayTextToPlayer-position/DisplayTextToPlayer-position.md)
+
+
+### Force API
+
+[Link to readme](Force-API/README.md)
 
 
 ### Inexplicable Timer Difference
@@ -78,6 +88,13 @@ Has all test maps, properly written down.
 
 Tests the String reader in W3I which has a built-in length limit.
 The value shows up in the game menu.
+
+
+### Variable Length Crash
+
+Using too long variable names crashed old versions (pre-Reforged). [read more](variable-length-crash/README.md)
+
+I also added other "too long" stuff that crashes WC3. Like function names, inline strings etc.
 
 
 ## The rest are my random snippets
@@ -285,7 +302,13 @@ showRect(RectFromLoc(locMin, locMax))
 
 rectSet = Rect(-1,-1,1,1)
 SetRect(rectSet, -1e5,-1e5, 1e5, 1e5)
-showRect(rectSet) --> capped to map bounds and maxX/maxY are off by 16
+showRect(rectSet) --> capped to map bounds and maxX/maxY are off by 32
+
+rectSetLoc = Rect(-1,-1,1,1)
+rectSetLoc_locMin = Location(-1e5, -1e5)
+rectSetLoc_locMax = Location(1e5, 1e5)
+SetRectFromLoc(rectSetLoc, rectSetLoc_locMin, rectSetLoc_locMax)
+showRect(rectSetLoc) --> capped to map bounds and maxX/maxY are off by 32
 
 SetRectFromLoc(rectSet, locFraction, locMax)
 showRect(rectSet) --> 0.1337,0.42, 4064,4064
@@ -367,7 +390,7 @@ DialogClear(dlog)
 DialogDestroy(dlog)
 ```
 
-### Wiget API and TriggerRegisterDeathEvent + GetTriggerWidget()
+### Widget API and TriggerRegisterDeathEvent + GetTriggerWidget()
 
 ```lua
 -- Create necessary widgets

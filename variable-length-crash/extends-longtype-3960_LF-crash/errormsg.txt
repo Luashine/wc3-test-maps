@@ -1,0 +1,18 @@
+---------------------------
+War3
+---------------------------
+This application has encountered a critical error:
+
+FATAL ERROR!
+
+
+Program:	C:\v1.27\War3.exe
+Exception:	0xC0000005 (ACCESS_VIOLATION) at 0023:6785B104
+
+The instruction at '0x6785B104' referenced memory at '0x0E741000'.
+The memory could not be 'written'.
+
+Press OK to terminate the application.
+---------------------------
+OK   
+---------------------------
