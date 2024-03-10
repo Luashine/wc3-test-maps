@@ -1,0 +1,41 @@
+﻿STRING 1
+{
+1.24a MultiLang All Test
+}
+
+STRING 2
+{
+Plrs: dede.classic
+}
+
+STRING 3
+{
+Description: dede.classic
+}
+
+STRING 4
+{
+Luashine
+}
+
+STRING 5
+{
+Hello from dede.classic Message!
+}
+
+STRING 6
+{
+Player 1
+}
+
+STRING 7
+{
+Force 1
+}
+
+STRING 8
+// Units: hpea (Custom WE Name), Name (Name)
+{
+dede.classic
+}
+
