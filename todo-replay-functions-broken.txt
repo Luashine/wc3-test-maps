@@ -1,0 +1,31 @@
+
+unit-based-event-api.j
+unit.j
+region-location.j
+random.j
+quest.j
+player.j
+MathRound
+map-setup.j
+leaderboard.j
+group.j !!!
+game.j
+force.j !!!
+
+%USERNAME%\Documents\Warcraft III\BattleNet\119843331\
+	Replays\TempReplay.w3g (a replay is automatically written regardless of autosave option)
+	Replays\LastReplay.w3g (at the end of the game, TempReplay.w3g is renamed)
+	Replays\Autosaved\Custom\Replay_2022_11_21_1928.w3g (LastReplay.w3g is copied byte-by-byte to here if autosave is enabled)
+	
+By default you can manually save the replay at the end of the game.
+
+When DoNotSaveReplay() is called, the currently being written TempReplay.w3g is closed and deleted.
+
+Bug (v1.32.10): At the end of the game session, the game will still try to open and rename the "lastreplay.w3g" file, even though it does not exist.
+
+Bug (v1.32.10): In (singleplayer custom game) Reforged still shows the "Watch replay" and "Download replay"  that don't work as expected.
+
+- "Watch Replay" will run the replay saved before that game (because `lastreplay.w3g` was not deleted / replaced)
+- "Download Replay" will ask for a file name but do nothing.
+
+Bug (v1.32.10, singleplayer custom game): The scoreboard menu still shows the "Watch replay" and "Download replay" that 
