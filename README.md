@@ -91,6 +91,16 @@ Scripted war3map.wts generation and test map, [read more](multilanguage-map/READ
 Lua: A map that causes a function call inside `Blizzard.j` to fail (`Blizzard.j` is auto-transpiled to Lua)
 
 
+### ROC-vs-TFT-vs-Reforged
+
+ROC v1.07 does not exist. And it does exist. It's a frankenstein. [Read more](roc-vs-tft-vs-reforged/README.md)
+
+### SetBlight and Shift key
+
+It was wrongly claimed that it's affected by whether player is currently pressing the Shift key. Instead its the NOTH SetTerrain type.
+
+[Read more and test map](SetBlight-depends-on-shift-key/README.md)
+
 ### SuggestedPlayerInW3I
 
 Has all test maps, properly written down.
