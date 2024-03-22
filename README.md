@@ -62,6 +62,15 @@ Shows text box position. Go to [DisplayTextToPlayer-position.md](DisplayTextToPl
 [Link to readme](Force-API/README.md)
 
 
+### GetSummonedUnit
+
+And the two events test code + map: [read more](GetSummonedUnit/README.md)
+
+Functions: GetSummonedUnit GetSummoningUnit GetTriggerUnit
+
+Events: EVENT_PLAYER_UNIT_SUMMON EVENT_UNIT_SUMMON
+
+
 ### Inexplicable Timer Difference
 
 No map, major problem, wrote an explanation.
