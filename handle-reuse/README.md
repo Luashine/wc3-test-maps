@@ -19,7 +19,7 @@ TimerStart(t1, 0.1, false, function() a = fn(); end); TimerStart(t1, 0.3, false,
 TimerStart(t1, 0.5, false, show)
 ```
 
-## Generic code v4 (manual & advanced)
+## Generic code v5 (manual & advanced)
 
 This is condensed into just few lines to update and run. This is especially handy with copy-pasting to console <https://github.com/Luashine/wc3-debug-console-paste-helper/>
 
@@ -96,7 +96,7 @@ function q() -- queue test
 end
 -- END OF INIT
 function fn()
-	return GetPlayerSlotState(Player(0))
+	return Location(0,0)
 end; q();
 -- END OF MANUAL TEST
 
@@ -111,7 +111,7 @@ function runAdvanced()
 			tOffset = tOffset + iv/(speed*0.85) -- caution, timer order must be staggered to avoid global overwrites!
 			local val, nonce,   t1, t2, t3 = valueList[iv], math.random(),    CreateTimer(),CreateTimer(),CreateTimer()
 			local func = function()
-				return blzFunc(val)
+				return type(val) == "table" and blzFunc(table.unpack(val)) or blzFunc(val)
 			end
 			TimerStart(t1, (0.0/speed)+tOffset, false, function() globalNonceA=nonce; a=func(); end)
 			TimerStart(t2, (0.1/speed)+tOffset, false, function() globalNonceB=nonce; b=func(); end)
@@ -119,14 +119,15 @@ function runAdvanced()
 		end
 	end;
 end
-function returner(r) return r end
+function returner(...) return ... end
 funcList = {
-returner,
+GetStartLocPrio
 }
-valueList = {
-"one",
-"two",
-"three"
+valueList = { -- an element may contain a table with multiple arguments to unpack
+{0,0},
+{0,1},
+{1,0},
+{1,1},
 }; valueListLength = math.max(#valueList, 1) -- overcome nil holes
 runAdvanced()
 ```
