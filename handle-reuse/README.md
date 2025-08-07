@@ -19,43 +19,22 @@ TimerStart(t1, 0.1, false, function() a = fn(); end); TimerStart(t1, 0.3, false,
 TimerStart(t1, 0.5, false, show)
 ```
 
-## Generic code 2 (manual test)
+## Generic code v4 (manual & advanced)
 
-This variant is condensed into just 4 changing lines (or 3). If you want to change the testing function,
-just change the body of `fn()` and call `q()` to retest.
+This is condensed into just few lines to update and run. This is especially handy with copy-pasting to console <https://github.com/Luashine/wc3-debug-console-paste-helper/>
 
-This is especially handy with copy-pasting to console <https://github.com/Luashine/wc3-debug-console-paste-helper/>
+### Manual testing
 
-```lua
--- initialization phase. the first three lines may shout about accessing a nil global
-if not t1 then t1 = CreateTimer() end
-if not t2 then t2 = CreateTimer() end
-if not t3 then t3 = CreateTimer() end
+If you want to change the testing function, just change the body of `fn()` and call `q()` to retest.
 
-function show()
-	print(string.format("globals: reused=%s, %s, %s", a==b, tostring(a),tostring(b)))
-	print(string.format("locals: reused=%s, %s, %s", fn()==fn(), fn(),fn()))
-end
-function setA()
-	a = fn()
-end
-function setB()
-	b = fn()
-end
-function q() -- queue test
-	TimerStart(t1, 0.1, false, setA); TimerStart(t2, 0.3, false, setB); TimerStart(t3, 0.5, false, show)
-end
--- end of init
-function fn()
-	return GetStartLocPrio(0,1)
-end
-q()
-```
-
-## Generic code v3 (manual & advanced)
+### Advanced testing
 
 You can test many functions with multiple values at once. Also tests globals & locals at once.
 Globals are temporarily stored and retrieved to test their persistence behavior.
+
+1. Change used functions in `funcList`
+2. Change supplied arguments in `valueList`. If you are gonna have `nil` values, you need to update length manually.
+3. call `runAdvanced()`
 
 ```lua
 -- INITIALIZATION PHASE. the first three lines may shout about accessing a nil global
@@ -113,7 +92,7 @@ function setB()
 	b = fn()
 end
 function q() -- queue test
-	TimerStart(t1, 0.1, false, setA); TimerStart(t2, 0.3, false, setB); TimerStart(t3, 0.5, false, show)
+	TimerStart(t1, 0.11, false, setA); TimerStart(t2, 0.22, false, setB); TimerStart(t3, 0.33, false, show)
 end
 -- END OF INIT
 function fn()
@@ -124,6 +103,22 @@ end; q();
 
 
 -- ADVANCED TESTING
+function runAdvanced()
+	for i = 1, #funcList do
+		local speed = 15
+		local blzFunc, tOffset = funcList[i]  ,  (i * valueListLength)/speed
+		for iv = 1, valueListLength do
+			tOffset = tOffset + iv/(speed*0.85) -- caution, timer order must be staggered to avoid global overwrites!
+			local val, nonce,   t1, t2, t3 = valueList[iv], math.random(),    CreateTimer(),CreateTimer(),CreateTimer()
+			local func = function()
+				return blzFunc(val)
+			end
+			TimerStart(t1, (0.0/speed)+tOffset, false, function() globalNonceA=nonce; a=func(); end)
+			TimerStart(t2, (0.1/speed)+tOffset, false, function() globalNonceB=nonce; b=func(); end)
+			TimerStart(t3, (0.2/speed)+tOffset, false, showNonce(nonce, func))
+		end
+	end;
+end
 function returner(r) return r end
 funcList = {
 returner,
@@ -131,22 +126,9 @@ returner,
 valueList = {
 "one",
 "two",
-"three",
+"three"
 }; valueListLength = math.max(#valueList, 1) -- overcome nil holes
-for i = 1, #funcList do
-	local speed = 15
-	local blzFunc, tOffset = funcList[i]  ,  (i * valueListLength)/speed
-	for iv = 1, valueListLength do
-		tOffset = tOffset + iv/(speed*0.85) -- caution, timer order must be staggered to avoid global overwrites!
-		local val, nonce,   t1, t2, t3 = valueList[iv], math.random(),    CreateTimer(),CreateTimer(),CreateTimer()
-		local func = function()
-			return blzFunc(val)
-		end
-		TimerStart(t1, (0.0/speed)+tOffset, false, function() globalNonceA=nonce; a=func(); end)
-		TimerStart(t2, (0.1/speed)+tOffset, false, function() globalNonceB=nonce; b=func(); end)
-		TimerStart(t3, (0.2/speed)+tOffset, false, showNonce(nonce, func))
-	end
-end;
+runAdvanced()
 ```
 
 ## ConvertXXX type API
