@@ -111,7 +111,8 @@ function runAdvanced()
 			tOffset = tOffset + iv/(speed*0.85) -- caution, timer order must be staggered to avoid global overwrites!
 			local val, nonce,   t1, t2, t3 = valueList[iv], math.random(),    CreateTimer(),CreateTimer(),CreateTimer()
 			local func = function()
-				return type(val) == "table" and blzFunc(table.unpack(val)) or blzFunc(val)
+				if type(val) == "table" then return blzFunc(table.unpack(val))
+				else return blzFunc(val) end
 			end
 			TimerStart(t1, (0.0/speed)+tOffset, false, function() globalNonceA=nonce; a=func(); end)
 			TimerStart(t2, (0.1/speed)+tOffset, false, function() globalNonceB=nonce; b=func(); end)
