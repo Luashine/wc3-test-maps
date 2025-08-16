@@ -111,7 +111,7 @@ function runAdvanced()
 			tOffset = tOffset + iv/(speed*0.85) -- caution, timer order must be staggered to avoid global overwrites!
 			local val, nonce,   t1, t2, t3 = valueList[iv], math.random(),    CreateTimer(),CreateTimer(),CreateTimer()
 			local func = function()
-				if type(val) == "table" then return blzFunc(table.unpack(val))
+				if type(val) == "table" then return blzFunc(table.unpack(val, 1, valueListParamCount))
 				else return blzFunc(val) end
 			end
 			TimerStart(t1, (0.0/speed)+tOffset, false, function() globalNonceA=nonce; a=func(); end)
@@ -129,7 +129,8 @@ valueList = { -- an element may contain a table with multiple arguments to unpac
 {0,1},
 {1,0},
 {1,1},
-}; valueListLength = math.max(#valueList, 1) -- overcome nil holes
+};  valueListLength = math.max(1, #valueList) -- overcome nil holes
+valueListParamCount = math.max(10, (type(valueList[1]) == "table" and #valueList or (1))) -- overcome nil holes
 runAdvanced()
 ```
 
