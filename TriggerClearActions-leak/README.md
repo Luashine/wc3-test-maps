@@ -15,7 +15,7 @@ The test code to showcase is only possible in Lua (you can remove the TimerStart
 The following code will show when the upvalue-d table is collected by Lua's garbage collector.
 This can only happen if the actionFunc is actually destroyed.
 
-**How to:** copy-paste this code and wait 30-120s in a map until the overly slowed down GC decides to wake up.
+**How to:** copy-paste this code and wait 30-120s in a map (`/time`, don't Alt-TAB) until the overly slowed down GC decides to wake up.
 
 **Expected: all to work**
 
