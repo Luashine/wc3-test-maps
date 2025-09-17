@@ -1,5 +1,7 @@
 # DestroyTrigger / TriggerClearActions leak
 
+Blizzard forums: <https://us.forums.blizzard.com/en/warcraft3/t/destroytrigger-triggerclearactions-leak/37169>
+
 The game (allegedly since forever) does not clean up any trigger actions when a trigger is destroyed using `DestroyTrigger` or when `TriggerClearActions` is called.
 
 > bug (v1.26a, newer versions too afaik) This leaks internally, because the game does not free the handle
