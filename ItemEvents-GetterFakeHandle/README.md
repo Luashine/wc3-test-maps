@@ -2,6 +2,8 @@
 
 Tested in version: 2.0.3.23101
 
+Download test map: https://github.com/Luashine/wc3-test-maps/raw/refs/heads/master/ItemEvents-GetterFakeHandle/evu-manipulatedItem-2.0.3.23101.w3m
+
 Context: none of the items spawned by the script are at `0; 0` to avoid confusion with the fallback value returned by positional getters.
 
 <img width="1414" height="835" alt="Debug console output" src="https://github.com/user-attachments/assets/77d06a96-178d-401b-a9b8-df2ccdabc739" />
