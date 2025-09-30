@@ -17,12 +17,16 @@ The handle pointer is always the same.
 
 You may need to start the map directly via `-loadfile` without game/map restarts to get it to return the garbage handle. See screenshot.
 
+**Reproduction:** pick up the first item with an empty inventory. `EVENT_UNIT_PICKUP_ITEM` will have `BlzGetAbsorbingItem` with garbage.
+
 ## Problem 2: BlzGetStackingItemSource sometimes returns garbage
 
 May return the exact same garbage pointer as previously returned by `BlzGetAbsorbingItem`. See `EVENT_UNIT_STACK_ITEM` output.
 This is why you see `item: gAbsorbing` (`gAbsorbing` is the pointers's global variable name, pretty-printed).
 
-## Problem 3: Getters not populated inside EVENT_UNIT_STACK_ITEM
+**Reproduction:** pick up the second item while having an incomplete item stack in inventory. `EVENT_UNIT_STACK_ITEM` will have `BlzGetStackingItemSource` with garbage.
+
+## Problem 3: Getters not populated inside EVENT_UNIT_STACK_ITEM / EVENT_PLAYER_UNIT_STACK_ITEM
 
 ### a) GetManipulatingUnit & GetManipulatedItem are null
 
@@ -32,7 +36,7 @@ Unit is obviously the item holder (unless it's possible to stack items on the gr
 
 ### b) BlzGetStackingItemSource/Target are not properly populated
 
-`BlzGetStackingItemSource` returns garbage, `BlzGetStackingItemTarget` is null.
+`BlzGetStackingItemSource` returns garbage (see Problem 2), `BlzGetStackingItemTarget` is null.
 
 ## Test code
 
