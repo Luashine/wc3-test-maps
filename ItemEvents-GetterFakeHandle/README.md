@@ -1,6 +1,8 @@
 # Fake item handles returned by some getters in item events
 
-Tested in version: 2.0.3.23101
+Tested in version: 2.0.3.23101, 2.0.3.23150-PTR
+
+Blizzard bug report: <https://us.forums.blizzard.com/en/warcraft3/t/fake-item-handles-returned-by-getters-in-item-events/37224> 
 
 Download test map: https://github.com/Luashine/wc3-test-maps/raw/refs/heads/master/ItemEvents-GetterFakeHandle/evu-manipulatedItem-2.0.3.23101.w3m
 
