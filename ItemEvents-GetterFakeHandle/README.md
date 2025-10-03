@@ -8,7 +8,15 @@ Download test map: https://github.com/Luashine/wc3-test-maps/raw/refs/heads/mast
 
 Context: none of the items spawned by the script are at `0; 0` to avoid confusion with the fallback value returned by positional getters.
 
+## Reproduction:
+
+You should start the game with `".\Warcraft III.exe" -launch -loadfile "C:\Users\!!!MYUSERNAME!!!\Documents\Warcraft III\Maps\evu-manipulatedItem-2.0.3.23101.w3m"`
+
+If it doesn't reproduce on first try, restart the entire game. The stars must align garbage data in place to make it pass off as an item handle to the pointer checks.
+I had success 2 out of 8 game starts, otherwise I've had it consistently earlier.
+
 <img width="1414" height="835" alt="Debug console output" src="https://github.com/user-attachments/assets/77d06a96-178d-401b-a9b8-df2ccdabc739" />
+<img width="789" height="366" alt="1-in-7-attempts" src="https://github.com/user-attachments/assets/e619cb9c-0d9f-428f-b1d8-f1de55923c25" />
 
 ## Problem 1: BlzGetAbsorbingItem returns garbage
 
