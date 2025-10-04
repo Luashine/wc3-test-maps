@@ -15,7 +15,7 @@ function LoadAbilityHandleBJ takes integer key, integer missionKey, hashtable ta
 ```
 
 All of these return an ability instance. Do they still need a destructor? Turns out, no.
-The test code uploaded here (look at files besides README.md) showcases how it works with GC.
+The test code uploaded here (`ability-destructor-reusage-test.lua`) showcases how it works with GC.
 
 1. Create Unit and retrieve an ability as an `ability` object.
 2. Record the ability handle ID, dismiss the object.
