@@ -9,6 +9,7 @@ For code snippets in Lua, use [Debug Console](https://www.hiveworkshop.com/threa
 
 To paste code into the game for live execution, use my [Debug Console Paste Helper](https://github.com/Luashine/wc3-debug-console-paste-helper).
 
+
 ## List of organized topics/subfolders
 
 ### Ability-Destructor
@@ -20,12 +21,12 @@ Lua. PoC that abilities are automatically collected by the game when the unit ho
 
 ### AddResourceAmount 
 
-Jass (1.27): Creates multiple mines to test `Add/Set|ResourceAmount` functions. Includes: 0, set negative, add big negative.
+Jass (1.27): Creates multiple mines to test `{Add,Set}ResourceAmount` functions. Includes: 0, set negative, add big negative.
 
 
 ### Attack-and-Gamespeed 
 
-Has a map, Lua.
+Has a map, Lua. Test how different in-game timers work against wall clock time.
 
 - Worker training: records wall clock time spent on training the human worker. Set to 10s in WE
 
@@ -90,18 +91,28 @@ Scripted copy/generation of war3map.wts for Classic & Reforged. Has a test map. 
 
 ### Nested-error-in-blizzardj
 
-[Link to map](Nested-error-in-blizzardj/lua-error-in-blizzardj-v1.w3m) inside the folder.
+No action needed. PoC, Lua: [A map](Nested-error-in-blizzardj/lua-error-in-blizzardj-v1.w3m)
+that causes a function call inside `Blizzard.j` to fail (`Blizzard.j` is auto-transpiled to Lua)
 
-Lua: A map that causes a function call inside `Blizzard.j` to fail (`Blizzard.j` is auto-transpiled to Lua)
+Summary: `QuestSetEnabledBJ` cannot be called with wrong arguments in Jass (type checking), but it's possible in Lua.
+The function is a simple alias for `QuestSetEnabled`.
 
+```
+	-- this will throw an error in 1.32.10 Lua
+	-- however if you call ("str", nil) then it'll fail silently
+	QuestSetEnabledBJ("ignored", "causesErr")
+```
 
 ### ROC-vs-TFT-vs-Reforged
 
 ROC v1.07 does not exist. And it does exist. It's a frankenstein. [Read more](roc-vs-tft-vs-reforged/README.md)
 
+
 ### SetBlight and Shift key
 
-It was wrongly claimed that it's affected by whether player is currently pressing the Shift key. Instead its the NOTH SetTerrain type.
+It was wrongly claimed that it's affected by whether player is currently pressing the Shift key.
+
+Instead its the NOTH SetTerrain type. (TODO: Confirm and report)
 
 [Read more and test map](SetBlight-depends-on-shift-key/README.md)
 
@@ -114,9 +125,10 @@ Code only. Fixed in 1.33. Multiboard crashes in 1.30.x-1.32.10 (maybe earlier). 
 
 Has all test maps, properly written down.
 
-Tests the String reader in W3I which has a built-in length limit.
+Tests the String reader in W3I which has a built-in length limit. Blow past all limits with this PoC.
 The value shows up in the game menu.
 
+**Specialty:** The game does not gracefully handle this (TODO: report as bug)
 
 ### Variable Length Crash
 
@@ -129,244 +141,18 @@ I also added other "too long" stuff that crashes WC3. Like function names, inlin
 
 etc.
 
+### Unit Item/Inventory API (snippets)
 
-### SetUnitColor (no map)
+Lua, No map. Code I had used (incrementally) to test the item API and unit inventory. [Link](Inventory-API/README.md)
 
-Sets a unit's player color accent.
+### Rect / Rectangle / Region / Location (snippets)
 
-```lua
-u1 = CreateUnit(Player(0), FourCC("hfoo"), -200, 0, 90)
-u2 = CreateUnit(Player(0), FourCC("hfoo"), 0, 0, 90)
-
-SetUnitColor(u1, PLAYER_COLOR_PINK)
-```
-
-### SetUnitVertexColor (no map)
-
-```lua
-u1 = CreateUnit(Player(0), FourCC("hfoo"), -200, 0, 90)
-u2 = CreateUnit(Player(0), FourCC("hfoo"), 0, 0, 90)
-
--- will make a unit 50% transparent with dark green-blue color
-SetUnitVertexColor(u1, 0, 255, 127, 127)
-```
-
-### Set/GetUnitAbilityLevel, SelectHeroSkill, SetHeroLevel etc.
-
-SetHeroLevel, SelectHeroSkill, GetUnitAbilityLevel, SetUnitAbilityLevel, ReviveHero, ReviveHeroLoc, UnitAddAbility, UnitRemoveAbility
-
-```lua
-u = CreateUnit(Player(0), FourCC("Hamg"), -30, 0, 90)
--- AHwe - Arch-Human-water-elemental summon
-GetUnitAbilityLevel(u, FourCC'AHwe')
-SetUnitAbilityLevel(u, FourCC'AHwe', 3)
-
-UnitAddAbility(u, FourCC'AHwe')
-UnitRemoveAbility(u, FourCC'AHwe')
-	
-SelectHeroSkill(u, FourCC'AHwe')
-
-SetHeroLevel(u, 9, true)
-```
-
-### Unit Item/Inventory API (no map)
-
-```lua
-AddPlayerTechResearched(Player(0), FourCC'Rhpm', 1)
-SetPlayerTechResearched(Player(0), FourCC'Rhpm', 0)
-
-UnitInventorySize(u)
----------
-u = CreateUnit(Player(0), FourCC("hfoo"), -30, 0, 90)
-
--- Add Human backpack research, allows to carry items
-AddPlayerTechResearched(Player(0), FourCC'Rhpm', 1)
-
--- quelthalas boots: belv
-UnitAddItemById(u, FourCC'belv')
-
--- UnitItemInSlot / UnitItemInSlotBJ
-for i = -1, 7 do print(i, UnitItemInSlot(u, i), UnitItemInSlotBJ(u, i+1)) end
-
-uItem = UnitItemInSlot(u, 0)
-
--- UnitHasItem
-print(UnitHasItem(u, uItem))
-
--- UnitRemoveItemFromSlot
-UnitRemoveItemFromSlot(u, uItem)
-
--- UnitRemoveItem
-UnitRemoveItem(u, uItem)
-
--- UnitDropItemPoint
-UnitDropItemPoint(u, uItem, 0, 0)
-
--- UnitDropItemSlot
--- move item from slot 0 to slot 1
-UnitDropItemSlot(u, uItem, 1)
-
--- Create castle
-castle = CreateUnit(Player(0), FourCC("hcas"), -30, 0, 90)
-
--- UnitDropItemTarget
-u2 = CreateUnit(Player(0), FourCC("hfoo"), -30, 0, 90)
-SetUnitColor(u2, PLAYER_COLOR_PINK)
-UnitDropItemTarget(u, uItem, u2)
-
--- UnitAddItem
-UnitAddItem(u, uItem)
-
--- add claws of attack +12
-UnitAddItemById(u, FourCC'ratc')
-UnitAddItemToSlotById(u, FourCC'ratc', 1)
-
-
-hero = CreateUnit(Player(0), FourCC("Hamg"), -30, 0, 90)
-heroItemHp = UnitAddItemById(hero, FourCC'phea')
-
--- Attempt to use heal pot at 100% hp
-UnitUseItem(hero, heroItemHp)
---> false, cannot use at 100% hp
-
--- Set 50% HP
-SetUnitState(hero, UNIT_STATE_LIFE, 200.0)
-UnitUseItem(hero, heroItemHp)
---> true, with visual effect
-
-heroDagger = UnitAddItemById(hero, FourCC'desc')
--- use dagger to 0,0 map coords
-UnitUseItemPoint(hero, heroDagger, 0, 0)
-
-heroInferno = UnitAddItemById(hero, FourCC'infs')
-UnitUseItemPoint(hero, heroInferno, 0, 0)
-
-heroWandTeleport = UnitAddItemById(hero, FourCC'stel')
-UnitUseItemTarget(hero, heroWandTeleport, castle)
-
-heroTownScroll = UnitAddItemById(hero, FourCC'stwp')
-UnitUseItemTarget(hero, heroTownScroll, castle)
-
--- try on non-hero
-uWandTeleport = UnitAddItemById(u, FourCC'stel')
-UnitUseItemTarget(u, uWandTeleport, castle)
-
--- Use hero dagger from far away targeted at castle
-UnitUseItemTarget(hero, heroDagger, castle)
---> does not cast, v1.32.10
-
--- Use spawn inferno targeted at unit
-heroInferno = UnitAddItemById(hero, FourCC'infs')
-UnitUseItemTarget(hero, heroInferno, castle)
---> does not cast, like dagger above
-
--- Use item without a target/pos
-UnitUseItem(hero, uWandTeleport)
---> false, probably because no target specified
-UnitUseItem(hero, heroDagger)
---> true, but does nothing, no cooldown
-UnitUseItem(hero, heroInferno)
---> true, but does nothing, no cooldown
-```
-
-### UnitAddItemById, EnumItems on map (code)
-
-```lua
-u = CreateUnit(Player(0), FourCC("hfoo"), -30, 0, 90)
-
--- Kelthas boots
--- will be dropped to the ground because cannot carry items
-UnitAddItemById(u, FourCC'belv')
-
--- Should spawn no items, both invalid
-UnitAddItemById(u, 0)
-UnitAddItemById(nil, FourCC'belv')
-
-EnumItemsInRect(GetWorldBounds(), nil, function() local it=GetEnumItem();print(GetItemX(it),GetItemY(it),GetItemName(it)) end)
-```
-
-### Rect / Rectangle / Region / Location (code)
-
-For: Rect, RectFromLoc, RemoveRect, SetRect, SetRectFromLoc, MoveRectTo, MoveRectToLoc, GetRectCenterX, GetRectCenterY, GetRectMinX, GetRectMinY, GetRectMaxX, GetRectMaxY, GetWorldBounds
-
-```lua
-function showRect(r) print(r,GetRectMinX(r),GetRectMinY(r),GetRectMaxX(r),GetRectMaxY(r)) end
-function checkRectCenter(r) print(GetRectCenterX(r), GetRectCenterY(r)) end
-
-
-rectAll = Rect(-1000000,-1000000,1000000,1000000)
-rectMin = Rect(-1000000,-1000000,-1000000,-1000000)
-rectMax = Rect(1000000,1000000,1000000,1000000)
-rectZero = Rect(0,0,0,0)
-
-showRect(GetWorldBounds()) --> -4096,-4096, 4096,4096
-showRect(rectAll) --> -4096,-4096, 4064,4064
-showRect(rectMin) --> -4096,-4096, -4096,-4096
-showRect(rectMax) --> 4064,4064, 4064,4064
-showRect(rectZero) --> all 0
-
-checkRectCenter(GetWorldBounds()) --> 0,0
-checkRectCenter(rectAll) --> -16,-16
-checkRectCenter(rectMin) --> -4096,-4096
-checkRectCenter(rectMax) --> 4064,4064
-checkRectCenter(rectZero) --> 0,0
-
-
-
-function showLoc(l) print(l,GetLocationX(l),GetLocationY(l)) end
-
-locMin = Location(-1000000,-1000000)
-locMax = Location(1000000,1000000)
-locZero = Location(0,0)
-locFraction = Location(0.1337,0.42)
-
-
-showLoc(locMin) --> -1000000,-1000000 etc
-showLoc(locMax)
-showLoc(locZero)
-showLoc(locFraction)
-
-showRect(RectFromLoc(locMin, locMax))
-
-rectSet = Rect(-1,-1,1,1)
-SetRect(rectSet, -1e5,-1e5, 1e5, 1e5)
-showRect(rectSet) --> capped to map bounds and maxX/maxY are off by 32
-
-rectSetLoc = Rect(-1,-1,1,1)
-rectSetLoc_locMin = Location(-1e5, -1e5)
-rectSetLoc_locMax = Location(1e5, 1e5)
-SetRectFromLoc(rectSetLoc, rectSetLoc_locMin, rectSetLoc_locMax)
-showRect(rectSetLoc) --> capped to map bounds and maxX/maxY are off by 32
-
-SetRectFromLoc(rectSet, locFraction, locMax)
-showRect(rectSet) --> 0.1337,0.42, 4064,4064
-
--- MoveRectTo
-rectMove = Rect(-2,-2, 4,4)
-checkRectCenter(rectMove)
-MoveRectTo(rectMove, 0, 0)
-checkRectCenter(rectMove)
-showRect(rectMove)
-
--- MoveRectTo bypasses map bounds checks/restrictions
-rectMoveBypass = Rect(-2,-2, 4,4)
-showRect(rectMoveBypass)
-MoveRectTo(rectMoveBypass, 1e6, 1e6)
-showRect(rectMoveBypass)
-
--- Bypasses similar to above
-MoveRectToLoc(rectMoveBypass, locMin)
-showRect(rectMoveBypass)
-
--- RemoveRect
-rectRemove = Rect(-1,-2, 3,4)
-RemoveRect(rectRemove)
-showRect(rectRemove)
-```
+Lua, No map. Code I had used (incrementally) to test the rect, location and region APIs. [Link](Rectangle-Location-API/README.md)
 
 ### Generate string to test max length
 
-Generates a string that tracks its own length for max length checks (Lua code):
+Lua code. **Specialty:** Generates a string that tracks its own length for max length checks.
+Really useful to see the cut-off length.
 
 ```lua
 local s = ""
@@ -392,9 +178,11 @@ Visible string:
    4   8    13 (last number points to this)
 ```
 
-### StringLength-And-Special.w3m
+### MaxStringLength
 
-Test map for string length and special character handling.
+I had been testing what special characters are understood by DisplayText, e.g. `\r` or `|n`.
+
+StringLength-And-Special.w3m - [Link](MaxStringLength/)
 
 ### global_constants_to_string.lua
 
