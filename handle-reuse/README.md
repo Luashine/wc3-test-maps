@@ -1,6 +1,23 @@
-# Test reuse of handles
+# Test reuse of handles in Lua
 
 Use in Eikonium's Debug Console
+
+Purpose: compare previously created handles against handles created just now.
+This is why the checks are delayed by timers.
+
+What actually happened in Lua VM:
+
+- handles are passed to Lua world as "userdata" objects/references
+- internal handle IDs (uint32) aren't exactly the same
+
+However this still lets us infer a couple properties:
+
+- is a userdata reused? --> definitely points to the same internal object
+- is it a new userdata? --> very likely a new internal object
+
+Note that throughout I've been comparing only the userdata pointers.
+I was either not interested or forgot to also include GetHandleId(obj).
+Ideally, you'd do both side by side.
 
 ## Generic code (simple)
 
@@ -33,8 +50,20 @@ You can test many functions with multiple values at once. Also tests globals & l
 Globals are temporarily stored and retrieved to test their persistence behavior.
 
 1. Change used functions in `funcList`
-2. Change supplied arguments in `valueList`. If you are gonna have `nil` values, you need to update length manually.
-3. call `runAdvanced()`
+2. Change supplied arguments in `valueList`.
+	- If you are gonna have `nil` values, you need to update length manually.
+Although it seems to work fine automatically now for up to `valueListParamCount`.
+4. call `runAdvanced()`
+
+**Note:** The timers are shared, so the code is not made for concurrency (aka not "MUI").
+Do not attempt anything that runs in parallel.
+
+#### Cool stuff
+
+**diffptr(obj1, obj2)** returns a formatted message
+with equal/different parts color-coded in green/red respectively.
+
+#### Code
 
 ```lua
 -- INITIALIZATION PHASE. the first three lines may shout about accessing a nil global
