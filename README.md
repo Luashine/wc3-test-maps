@@ -11,11 +11,16 @@ To paste code into the game for live execution, use my [Debug Console Paste Help
 
 ## List of organized topics/subfolders
 
+### Ability-Destructor
+
+Lua. PoC that abilities are automatically collected by the game when the unit holding them is removed &amp; recycled.
+
+**Specialty:** The code can track the lifecycle of an arbitrary object handle. Very useful! Must be changed to become a generic solution.
+
+
 ### AddResourceAmount 
 
-Jass, 1.27
-
-Creates multiple mines to test `Add/Set|ResourceAmount` functions. Includes: 0, set negative, add big negative.
+Jass (1.27): Creates multiple mines to test `Add/Set|ResourceAmount` functions. Includes: 0, set negative, add big negative.
 
 
 ### Attack-and-Gamespeed 
@@ -35,53 +40,52 @@ Has a map, Lua.
 
 - Wait based on a single Timer (unlike PolledWait): `-timerwait <seconds>`
 
+
 ### Boolean Expression API
 
-[Link to text](Boolean-expression-API/README.md)
+Jass and Lua. [Link to text](Boolean-expression-API/README.md)
+
+How do boolexpr, Condition, Filter behave? Do they return new objects every time? (spoiler: it depends on the VM)
+
 
 ### (Bug) BlzHideCinematicPanels shifts camera
 
 See file: [BlzHideCinematicPanels.md](BlzHideCinematicPanels.md)
 
 
-### DestroyMultiboard + ShowInterface(false, 0) crash
-
-Code only.
-
-Fixed in 1.33. *Multiboard does crash in 1.30.x-1.32.10 (maybe earlier)*. Go to [ShowInterface-crash](ShowInterface-crash/README.md).
-
 ### DisplayTextToPlayer-position
 
-No map.
+No map. Shows how Display text box position works. Go to [DisplayTextToPlayer-position.md](DisplayTextToPlayer-position/README.md)
 
-Shows text box position. Go to [DisplayTextToPlayer-position.md](DisplayTextToPlayer-position/DisplayTextToPlayer-position.md)
+
+### Early Timer Desyncs (Lua)
+
+Reported, PoC: Even the simplest timers made with Trigger GUI can cause a desync. [Go to](EarlyTimerDesyncsLua/README.md)
 
 
 ### Force API
 
-[Link to readme](Force-API/README.md)
+Lua, tiny code snippets to test player presence in Force. [Link to readme](Force-API/README.md)
 
 
 ### GetSummonedUnit
 
-And the two events test code + map: [read more](GetSummonedUnit/README.md)
+Map, Lua, obsolete testing code: test which getters apply to what event. [Read more](GetSummonedUnit/README.md)
 
-Functions: GetSummonedUnit GetSummoningUnit GetTriggerUnit
-
-Events: EVENT_PLAYER_UNIT_SUMMON EVENT_UNIT_SUMMON
+Events: EVENT_PLAYER_UNIT_SUMMON, EVENT_UNIT_SUMMON.
+Functions: GetSummonedUnit GetSummoningUnit GetTriggerUnit.
 
 
 ### Inexplicable Timer Difference
 
-No map, major problem, wrote an explanation.
+** Unresolved.** No map, major problem, wrote an explanation.
 
-The in-game timers oscillate and deviate. Major change in behavior between 1.29 and Reforged.
-Go to [readme](inexplicable-timer-difference/README.md).
+The in-game timers oscillate and deviate. Timers behavior changed between 1.29 and Reforged and they now accumulate the arithmetical error differently.Go to [readme](inexplicable-timer-difference/README.md).
 
 
 ### Multilanguage
 
-Scripted war3map.wts generation and test map, [read more](multilanguage-map/README.md).
+Scripted copy/generation of war3map.wts for Classic & Reforged. Has a test map. [Read more](multilanguage-map/README.md).
 
 
 ### Nested-error-in-blizzardj
@@ -100,6 +104,11 @@ ROC v1.07 does not exist. And it does exist. It's a frankenstein. [Read more](ro
 It was wrongly claimed that it's affected by whether player is currently pressing the Shift key. Instead its the NOTH SetTerrain type.
 
 [Read more and test map](SetBlight-depends-on-shift-key/README.md)
+
+### ShowInterface(false, 0) crash with DestroyMultiboard
+
+Code only. Fixed in 1.33. Multiboard crashes in 1.30.x-1.32.10 (maybe earlier). Go to [ShowInterface-crash](ShowInterface-crash/README.md).
+
 
 ### SuggestedPlayerInW3I
 
