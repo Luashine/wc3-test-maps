@@ -12,8 +12,8 @@ function fn()
 	return ConvertAllianceType(1)
 end
 function show()
-	print(string.format("globals: reused=%s, %s, %s", a==b, tostring(a),tostring(b)))
-	print(string.format("locals: reused=%s, %s, %s", fn()==fn(), fn(),fn()))
+	print(string.format("globals: reused=\x25s, \x25s, \x25s", a==b, tostring(a),tostring(b)))
+	print(string.format("locals: reused=\x25s, \x25s, \x25s", fn()==fn(), fn(),fn()))
 end
 TimerStart(t1, 0.1, false, function() a = fn(); end); TimerStart(t1, 0.3, false, function() b = fn() end)
 TimerStart(t1, 0.5, false, show)
@@ -43,7 +43,7 @@ if not t2 then t2 = CreateTimer() end
 if not t3 then t3 = CreateTimer() end
 
 function formatptr(obj)
-	return (string.format("%s", obj):gsub(": 0+", ": "))
+	return (string.format("\x25s", obj):gsub(": 0+", ": "))
 end
 function diffptr(obj1, obj2)
 	local red, green, r = "\x7CcFFff7777", "\x7CcFF77ff77", "\x7Cr"
@@ -70,9 +70,9 @@ end --print(diffptr(math.sin, math.cos))
 
 function show(func)
 	local funct = func or fn -- fn is supposed to be globally defined
-	print(string.format("globals: reused=%s, %s, %s", a==b, tostring(a), tostring(b)))
+	print(string.format("globals: reused=\x25s, \x25s, \x25s", a==b, tostring(a), tostring(b)))
 	local la, lb = funct(), funct()
-	print(string.format("locals: reused=%s, %s, %s", la==lb, diffptr(la, lb)))
+	print(string.format("locals: reused=\x25s, \x25s, \x25s", la==lb, diffptr(la, lb)))
 end
 function showNonce(thisNonce, func) -- avoid mangling of global by other functions
 	return function()
