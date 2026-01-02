@@ -59,13 +59,21 @@ It's a custom made installer of the TFT patch (apply on top of 1.07). It says:
 > This patch upgrades Warcraft IIIX from version 1.07 to version 1.10.
 
 > Brought to u by AmAdEuS
+> 
 > www.world-of-amadeus.de
+> 
 > ...
+> 
 > Patch applied successfully
+> 
 > visit
+> 
 > www.world-of-amadeus.de
+> 
 > www.pvpgn.de
+> 
 > www.pvpgn-europe.de
+> 
 >  for future updates...
 
 Here's your motivation for the patch. Non-official bnet servers! :)
@@ -73,18 +81,32 @@ Here's your motivation for the patch. Non-official bnet servers! :)
 Why is there apparently a Russian patch? The website tells us:
 
 > B@le.net (Europe/Korea/USA) Ladder-Stats 	w3.battle.net 	WC3 & D2 & SC
+> 
 > Ender (USA) 	216.89.228.18 	official PvPGN TestServer
+> 
 > youxia 	202.101.165.145 	WarCraft III
+> 
 > XC_ONLINE D2CS Server (China) 	61.139.54.70 	WC3 & D2
+> 
 > Purga.Net (Russia) 	195.58.6.10 	WC3 & D2 & SC
+> 
 > Ptath's (Russia) 	217.23.91.4 	WC3 & D2
 
 The community was well connected.
 
-It launches the official Blizzard Updater v2.64 and also has proper patch notes embedded.
+---
+
+The patcher launches the official Blizzard Updater v2.64 and also has proper patch notes embedded.
 While it is "unofficial", it's based on official data!
 
-Similarly to 1.07, ROC menu shows 1.10.
+Similarly to ROC+TFT v1.07, ROC menu shows 1.10.
+
+In ROC 1.10 it is possible to queue rally points as indicated by [online patch notes](https://warcraft.wiki.gg/wiki/Warcraft_III/Patch_1.10).
+This means that the core game engine was shared (as expected):
+
+> Rally points can now be given waypoints to avoid running into creep camps while rallying new units.
+
+This is the Warcraft 3 Patch 1.10 changelog pop-up (at the end it is followed by v1.06 release notes):
 
 ```
 --------------------------------------------------------------------------
@@ -357,16 +379,11 @@ cannot be viewed with the 1.10 version of Warcraft III.) Custom save games will
 not load from version 1.07.
 ```
 
-Followed by 1.06 release notes.
-
-In ROC 1.10 it is possible to queue rally points as indicated by [online patch notes](https://warcraft.wiki.gg/wiki/Warcraft_III/Patch_1.10):
-
-> Rally points can now be given waypoints to avoid running into creep camps while rallying new units.
 
 ## Further digging
 
-Names: https://web.archive.org/web/20030415153717/http://www.world-of-amadeus.de:80/pvpgn-stats/index.php
-Files: https://web.archive.org/web/20030828124604/http://www.world-of-amadeus.de:80/files.html
+- Names: https://web.archive.org/web/20030415153717/http://www.world-of-amadeus.de:80/pvpgn-stats/index.php
+- Files: https://web.archive.org/web/20030828124604/http://www.world-of-amadeus.de:80/files.html
 
 > BNFTP: (to receive the autoupdate-mpqs from blizzard and add them to your server)
 > "bnftp-package.exe"
