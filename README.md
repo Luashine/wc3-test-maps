@@ -10,14 +10,93 @@ For code snippets in Lua, use [Debug Console](https://www.hiveworkshop.com/threa
 To paste code into the game for live execution, use my [Debug Console Paste Helper](https://github.com/Luashine/wc3-debug-console-paste-helper).
 
 
-## List of organized topics/subfolders
+## Highlights (Cool stuff comes first)
+
 
 ### Ability-Destructor
 
-Lua. PoC that abilities are automatically collected by the game when the unit holding them is removed &amp; recycled.
+Lua. PoC that abilities are automatically collected by the game when the unit holding them is removed & recycled.
 
 **Specialty:** The code can track the lifecycle of an arbitrary object handle. Very useful! Must be changed to become a generic solution.
 
+
+### Desync due to Lua objects and GC (init phase)
+
+Repro [Map link (other repo)](https://github.com/Luashine/wc3-lua-global-desync)
+and bug report: <https://us.forums.blizzard.com/en/warcraft3/t/desync-due-to-lua-objects-and-gc-init-phase/36996>
+
+### Early Timer Desyncs (Lua)
+
+Reported, PoC: Even the simplest timers made with Trigger GUI can cause a desync. [Go to](EarlyTimerDesyncsLua/README.md)
+
+
+### Generate string to test max length
+
+Lua code. **Specialty:** Generates a string that tracks its own length for max length checks.
+Really useful to see the cut-off length.
+
+```lua
+local s = ""
+local maxLength = 5000
+
+while #s < maxLength do
+	s = s .. (#s .. ".")
+end
+print(s)
+```
+
+Example output: `0.2.4.6.8.10.13.`
+
+This must be read as "13." means that the dot character following "10" was the 13th character in the string. Thus we only need to sum up 13 + the three characters of the last number you can see: 13+3 = 16 characters total generated and visible.
+
+Graphic:
+
+```
+Visible string:
+0.2.4.6.8.10.13.
+ ^ ^ ^ ^ ^  ^  ^
+ 2 | 6 | 10 |  16 (you can see 3 more characters after the last number)
+   4   8    13 (last number points to this)
+```
+
+
+### Handle reuse
+
+Lua, quality code snippets. Purpose: test handle behavior and reuse of previous handles by the game.
+[Link](handle-reuse/README.md)
+
+**Specialty:** tests userdata references returned by the game for reuse/static.
+
+
+### Multilanguage
+
+Scripted copy/generation of war3map.wts for Classic & Reforged. Has a test map. [Read more](multilanguage-map/README.md).
+
+
+### ROC-vs-TFT-vs-Reforged
+
+ROC v1.07 does not exist. And it does exist. It's a frankenstein. [Read more](roc-vs-tft-vs-reforged/README.md)
+
+
+### Spell Event test
+
+Lua, self-contained quality snippet. Used to test all spell event types for jassdoc. [Link](spell-event/README.md)
+
+- EVENT_UNIT_SPELL_CHANNEL
+- EVENT_UNIT_SPELL_CAST
+- EVENT_UNIT_SPELL_EFFECT
+- EVENT_UNIT_SPELL_FINISH
+- EVENT_UNIT_SPELL_ENDCAST
+- EVENT_PLAYER_UNIT_SPELL_CHANNEL
+- EVENT_PLAYER_UNIT_SPELL_CAST
+- EVENT_PLAYER_UNIT_SPELL_EFFECT
+- EVENT_PLAYER_UNIT_SPELL_FINISH
+- EVENT_PLAYER_UNIT_SPELL_ENDCAST
+
+
+## List of organized topics/subfolders
+
+Other stuff, alphabetically sorted.
 
 ### AddResourceAmount 
 
@@ -51,17 +130,12 @@ How do boolexpr, Condition, Filter behave? Do they return new objects every time
 
 ### (Bug) BlzHideCinematicPanels shifts camera
 
-See file: [BlzHideCinematicPanels.md](BlzHideCinematicPanels.md)
+TODO: Report it officially. A note is already included in jassdoc. See file: [BlzHideCinematicPanels.md](BlzHideCinematicPanels.md)
 
 
 ### DisplayTextToPlayer-position
 
 No map. Shows how Display text box position works. Go to [DisplayTextToPlayer-position.md](DisplayTextToPlayer-position/README.md)
-
-
-### Early Timer Desyncs (Lua)
-
-Reported, PoC: Even the simplest timers made with Trigger GUI can cause a desync. [Go to](EarlyTimerDesyncsLua/README.md)
 
 
 ### Force API
@@ -77,16 +151,19 @@ Events: EVENT_PLAYER_UNIT_SUMMON, EVENT_UNIT_SUMMON.
 Functions: GetSummonedUnit GetSummoningUnit GetTriggerUnit.
 
 
+### Image API
+
+Lua, [code snippets](image-api/README.md). I used this to test the Image API:
+
+1. Create an image grid overlayed on top of terrain
+2. A snippet for 3 images for manual testing
+
+
 ### Inexplicable Timer Difference
 
 ** Unresolved.** No map, major problem, wrote an explanation.
 
 The in-game timers oscillate and deviate. Timers behavior changed between 1.29 and Reforged and they now accumulate the arithmetical error differently.Go to [readme](inexplicable-timer-difference/README.md).
-
-
-### Multilanguage
-
-Scripted copy/generation of war3map.wts for Classic & Reforged. Has a test map. [Read more](multilanguage-map/README.md).
 
 
 ### Nested-error-in-blizzardj
@@ -103,10 +180,6 @@ The function is a simple alias for `QuestSetEnabled`.
 	QuestSetEnabledBJ("ignored", "causesErr")
 ```
 
-### ROC-vs-TFT-vs-Reforged
-
-ROC v1.07 does not exist. And it does exist. It's a frankenstein. [Read more](roc-vs-tft-vs-reforged/README.md)
-
 
 ### SetBlight and Shift key
 
@@ -115,6 +188,7 @@ It was wrongly claimed that it's affected by whether player is currently pressin
 Instead its the NOTH SetTerrain type. (TODO: Confirm and report)
 
 [Read more and test map](SetBlight-depends-on-shift-key/README.md)
+
 
 ### ShowInterface(false, 0) crash with DestroyMultiboard
 
@@ -137,10 +211,6 @@ Using too long variable names crashed old versions (pre-Reforged). [read more](v
 I also added other "too long" stuff that crashes WC3. Like function names, inline strings etc.
 
 
-## The rest are my random snippets
-
-etc.
-
 ### Unit Item/Inventory API (snippets)
 
 Lua, No map. Code I had used (incrementally) to test the item API and unit inventory. [Link](Inventory-API/README.md)
@@ -149,40 +219,13 @@ Lua, No map. Code I had used (incrementally) to test the item API and unit inven
 
 Lua, No map. Code I had used (incrementally) to test the rect, location and region APIs. [Link](Rectangle-Location-API/README.md)
 
-### Generate string to test max length
-
-Lua code. **Specialty:** Generates a string that tracks its own length for max length checks.
-Really useful to see the cut-off length.
-
-```lua
-local s = ""
-local maxLength = 5000
-
-while #s < maxLength do
-	s = s .. (#s .. ".")
-end
-print(s)
-```
-
-Example output: `0.2.4.6.8.10.13.`
-
-This must be read as "13." means that the dot character following "10" was the 13th character in the string. Thus we only need to sum up 13 + the three characters of the last number you can see: 13+3 = 16 characters total generated and visible.
-
-Graphic:
-
-```
-Visible string:
-0.2.4.6.8.10.13.
- ^ ^ ^ ^ ^  ^  ^
- 2 | 6 | 10 |  16 (you can see 3 more characters after the last number)
-   4   8    13 (last number points to this)
-```
 
 ### MaxStringLength
 
 I had been testing what special characters are understood by DisplayText, e.g. `\r` or `|n`.
 
 StringLength-And-Special.w3m - [Link](MaxStringLength/)
+
 
 ### global_constants_to_string.lua
 
@@ -194,6 +237,7 @@ Given a registered object (namespace aka matching prefix), it'll return it's `_G
 [Link - global_constants_to_string.lua](global_constants_to_string.lua)
 
 Example: `print(prettyStringGameType( GetGameTypeSelected() ))`
+
 
 ### Dialog API testing snippet
 
