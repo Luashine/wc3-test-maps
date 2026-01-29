@@ -29,6 +29,30 @@ This can only happen if the actionFunc is actually destroyed.
 This means neither the trigger action nor the upvalues were removed and collected.
 
 ```lua
+function getHandleIdWatermark(handle)
+    if handle then
+        return GetHandleId(handle)-0x100000
+    end
+    
+    local loc = Location(1,2)
+    local watermark = GetHandleId(loc)-0x100000
+    RemoveLocation(loc)
+    return watermark
+end
+
+createGarbageTimer = CreateTimer()
+TimerStart(createGarbageTimer, 1.0, true, function()
+	local max = 5
+	for i = 1, max do
+		local loc = Location(13, 37)
+		if i == max then
+			local text = "Current handle ID watermark (max): ".. tostring(getHandleIdWatermark(loc))
+			BlzDisplayChatMessage(GetLocalPlayer(), 0, text)
+		end
+		RemoveLocation(loc)
+	end
+end)
+
 reproTimer = CreateTimer()
 TimerStart(reproTimer, 0.3, false, function()
 	do -- does completely gc the upvalues
