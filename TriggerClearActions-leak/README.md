@@ -28,6 +28,31 @@ This can only happen if the actionFunc is actually destroyed.
 
 This means neither the trigger action nor the upvalues were removed and collected.
 
+---
+
+Variation of `createGarbageTimer` to create Lua objects as garbage (a table) and a higher iteration count (works in retail/ptr 2.0.4):
+
+```lua
+createGarbageTimer = CreateTimer()
+TimerStart(createGarbageTimer, 0.1, true, function()
+	local max = 30
+	for i = 1, max do
+		local loc = Location(13, 37)
+		if i == max then
+			local text = "Current handle ID watermark (max): ".. tostring(getHandleIdWatermark(loc))
+			BlzDisplayChatMessage(GetLocalPlayer(), 0, text)
+		end
+		local foo = {"Table"}
+		foo = nil -- unnecessary in Lua, but lets do it early
+		RemoveLocation(loc)
+	end
+end)
+```
+
+---
+
+Reproduction code that works well for 2.0.3 and below:
+
 ```lua
 function getHandleIdWatermark(handle)
     if handle then
