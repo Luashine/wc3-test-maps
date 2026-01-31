@@ -28,9 +28,22 @@ This can only happen if the actionFunc is actually destroyed.
 
 This means neither the trigger action nor the upvalues were removed and collected.
 
+Variations of GC pressure
 ---
 
-Variation of `createGarbageTimer` to create Lua objects as garbage (a table) and a higher iteration count (works in retail/ptr 2.0.4):
+`createGarbageTimer` to create Lua objects as garbage (a table) and a higher iteration count (works in retail/ptr 2.0.4):
+
+## 0.1s delay, 30 locs/timer and 30*6 tables per timer
+
+- first GC at 12k?
+- second GC at 24k, also removed TriggerAction
+- third GC at 30k
+- fourth GC at 30k
+- fifth GC at 30.5k
+- sixth GC at 30.5k
+- seventh GC at 30.5k
+- eigth GC at 31k
+- etc., no runaway observed
 
 ```lua
 createGarbageTimer = CreateTimer()
@@ -49,9 +62,50 @@ TimerStart(createGarbageTimer, 0.1, true, function()
 end)
 ```
 
+## 0.1 delay, 50 locs/timer and zero tables per timer
+
+- first GC at 17k
+- second GC at ~65k, also removed TriggerAction (2.0.3 still cleared that handle much earlier)
+- third GC at 124k (down to zero as before)
+- ...
+- 262k down to 133k
+- ... ~180k down to 84k
+- ... ~100k down to 10k
+- >605k down to ~100k
+- ... down to 60k
+- ~120k to 8k
+- ~680k down to 140k
+- ... down to ~15k
+- ~1300k to ~420k
+- ... down to 140k
+- ... down to 80k
+- ... down to 50k
+- ....
+- 1.52M handle IDs after 2h43m
+- 2.50M handle IDs after 3h15m
+
+```lua
+createGarbageTimer = CreateTimer()
+TimerStart(createGarbageTimer, 0.1, true, function()
+	local max = 50
+	for i = 1, max do
+		local loc = Location(13, 37)
+		if i == max then
+			local text = "Current handle ID watermark (max): ".. tostring(getHandleIdWatermark(loc))
+			BlzDisplayChatMessage(GetLocalPlayer(), 0, text)
+		end
+		--local foo = {"Table"}
+		--foo = nil -- unnecessary in Lua, but lets do it early
+		RemoveLocation(loc)
+	end
+end)
+```
+
 ---
 
-Reproduction code that works well for 2.0.3 and below:
+Below is the reproduction code that works well for 2.0.3 and older.
+
+**Note:** Garbage creation was not required prior to 2.0.4 and was not part of original repro.
 
 ```lua
 function getHandleIdWatermark(handle)
