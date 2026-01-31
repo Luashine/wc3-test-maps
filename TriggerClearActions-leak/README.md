@@ -64,6 +64,9 @@ end)
 
 ## 0.1 delay, 50 locs/timer and zero tables per timer
 
+1. v2.0.3.23175-retail: goes up to 60k occasionally, but goes down.
+2. v2.0.4.23452-retail: at too high object creation speeds, it starts to run away and allows too many uncollected objects
+
 - first GC at 17k
 - second GC at ~65k, also removed TriggerAction (2.0.3 still cleared that handle much earlier)
 - third GC at 124k (down to zero as before)
@@ -71,7 +74,7 @@ end)
 - 262k down to 133k
 - ... ~180k down to 84k
 - ... ~100k down to 10k
-- >605k down to ~100k
+- over 605k down to ~100k
 - ... down to 60k
 - ~120k to 8k
 - ~680k down to 140k
@@ -83,6 +86,7 @@ end)
 - ....
 - 1.52M handle IDs after 2h43m
 - 2.50M handle IDs after 3h15m
+- down to 795k at 3h20m, now keeps increasing again
 
 ```lua
 createGarbageTimer = CreateTimer()
