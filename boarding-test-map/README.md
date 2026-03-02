@@ -77,7 +77,7 @@ Order sequence if `trained unit owner != allied transport owner`
 
 ----
 
-# Issued Ordeer debug code
+# Issued Order debug code
 
 ```lua
 function printOrderInfo()
