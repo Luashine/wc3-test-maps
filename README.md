@@ -120,6 +120,13 @@ Has a map, Lua. Test how different in-game timers work against wall clock time.
 
 - Wait based on a single Timer (unlike PolledWait): `-timerwait <seconds>`
 
+### Boarding Test Map (debug for bug and crash)
+
+[Link to folder](boarding-test-map) v2.0.4.23556
+
+1. Shared control AI crash (unload order flood)
+2. AI Player tries to board its own building once you order its ship to be too close to a coast line
+3. Allied transport units don't work as rally target
 
 ### Boolean Expression API
 
