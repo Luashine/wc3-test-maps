@@ -1,6 +1,6 @@
 # crash-CreateUnit-in-globals
 
-Tested in: 2.0.4.23556 retail
+Tested in: 2.0.4.23556 retail, v1.21
 
 Test map: uploaded to github here
 
@@ -15,3 +15,7 @@ globals
 	unit u = CreateUnit(Player(0), 'hfoo', -30, 0, 90)
 endglobals
 ```
+
+Only tested in Jass.
+
+Reported by: Mimbres
