@@ -140,6 +140,10 @@ How do boolexpr, Condition, Filter behave? Do they return new objects every time
 TODO: Report it officially. A note is already included in jassdoc. See file: [BlzHideCinematicPanels.md](BlzHideCinematicPanels.md)
 
 
+### Crash CreateUnit in globals
+
+[Read more](crash-CreateUnit-in-globals)
+
 ### DisplayTextToPlayer-position
 
 No map. Shows how Display text box position works. Go to [DisplayTextToPlayer-position.md](DisplayTextToPlayer-position/README.md)
